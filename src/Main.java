@@ -25,12 +25,11 @@ public class Main {
         saveGame(filePath, progress3);
 
         zipFiles(zipPath, listPath);
-
+        deleteFile(listPath);
     }
 
     public static void saveGame(String filePath, GameProgress progress) {
-        try (FileOutputStream fos = new FileOutputStream(filePath + "Save" + fileCounter + ".dat");
-             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+        try (FileOutputStream fos = new FileOutputStream(filePath + "Save" + fileCounter + ".dat"); ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             listPath.add(filePath + "Save" + fileCounter + ".dat");
             fileCounter++;
             oos.writeObject(progress);
@@ -58,6 +57,9 @@ public class Main {
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+    public static void deleteFile(List<String> fileList) {
         for (String s : fileList) {
             File file = new File(s);
             file.delete();
